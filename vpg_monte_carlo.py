@@ -98,7 +98,7 @@ def train(
         batch_loss = compute_loss(
             obs=torch.as_tensor(batch_obs, dtype=torch.float32),
             act=torch.as_tensor(batch_acts, dtype=torch.int32),
-            weights=torch.as_tensor(batch_advantages, dtype=torch.float32),
+            weights=adv,
         )
         batch_loss.backward()
         optimizer.step()
@@ -121,7 +121,7 @@ if __name__ == "__main__":
         env_name="CartPole-v1",
         hidden_sizes=[32],
         lr=1e-2,
-        epochs=50,
+        epochs=80,
         batch_size=5_000,
         gamma=0.99,
         normalize_adv=True,
