@@ -14,7 +14,7 @@ from gymnasium.spaces import Box, Discrete
 from torch.distributions.categorical import Categorical
 from torch.optim import Adam
 
-from src.rl_playground.nn.mlp import mlp
+from rl_playground.nn.mlp import mlp
 
 
 def train(
@@ -26,7 +26,7 @@ def train(
     gamma=0.99,
     normalize_adv=True,
     value_fcn_hidden_sizes=[32],
-    value_fcn_lr=5e-3,
+    alpha=5e-3,
     value_iterations_per_epoch=5,
 ):
     env = gym.make(env_name)
@@ -70,7 +70,7 @@ def train(
         return value_net(obs_tensor).squeeze()
 
     policy_optimizer = Adam(params=logits_net.parameters(), lr=policy_lr)
-    value_fcn_optimizer = Adam(params=value_net.parameters(), lr=value_fcn_lr)
+    value_fcn_optimizer = Adam(params=value_net.parameters(), lr=alpha)
 
     def train_one_epoch():
         def value_fct_training_iteration(returns, values):
@@ -170,6 +170,6 @@ if __name__ == "__main__":
         gamma=0.99,
         normalize_adv=True,
         value_fcn_hidden_sizes=[32],
-        value_fcn_lr=5e-3,
+        alpha=5e-3,
         value_iterations_per_epoch=5,
     )

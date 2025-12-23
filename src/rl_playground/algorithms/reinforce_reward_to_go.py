@@ -5,7 +5,7 @@ from gymnasium.spaces import Box, Discrete
 from torch.distributions.categorical import Categorical
 from torch.optim import Adam
 
-from src.rl_playground.nn.mlp import mlp
+from rl_playground.nn.mlp import mlp
 
 
 def train(
