@@ -1,3 +1,12 @@
+"""
+The discounted reward-to-go G_t is the Monte-Carlo estimate of Q(s_t, a_t), therefore
+in combination with a value estimate, we have an advantage estimate based on the Monte-
+Carlo estimate of Q.
+
+A_t = G_t - V(s_t)
+"""
+
+
 import gymnasium as gym
 import numpy as np
 import torch
@@ -5,7 +14,7 @@ from gymnasium.spaces import Box, Discrete
 from torch.distributions.categorical import Categorical
 from torch.optim import Adam
 
-from nn import mlp
+from src.rl_playground.nn.mlp import mlp
 
 
 def train(
@@ -156,7 +165,7 @@ if __name__ == "__main__":
         env_name="CartPole-v1",
         policy_hidden_sizes=[32],
         policy_lr=1e-2,
-        epochs=50,
+        epochs=80,
         batch_size=5_000,
         gamma=0.99,
         normalize_adv=True,
